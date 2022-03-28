@@ -20,4 +20,17 @@ pipeline{
             }
         }
     }
+
+    // after the stages are completed we can define post actions
+    post {
+        always {
+            // executes everytime a build has finished
+        }
+        success {
+            //executes upon successful build
+        }
+        failure {
+            // executes upon build failure
+        }
+    }
 }
