@@ -24,12 +24,15 @@ pipeline{
     post {
         always {
             // executes everytime a build has finished
+            echo 'always notify me of new builds...'
         }
         success {
             //executes upon successful build
+            echo'notify me on success...'
         }
         failure {
             // executes upon build failure
+            echo'notify me on failures...'
         }
     }
 }
