@@ -1,5 +1,13 @@
 pipeline{
     agent any
+    //defining environmental variables
+    environment {
+        // NEW_VERSION is an env variable
+        NEW_VERSION = '1.1.0'
+        // to get credentials previously defined in jenkins itself we need make use of credentials("credId")
+        // and we need the credentials binding plugin installed in jenkins
+        ARTIFACTORY_SERVER_CREDENTIALS = credentials('artifactory-credits')
+    }
     stages{
         stage('Build') {
             steps {
@@ -36,7 +44,8 @@ pipeline{
         }
         success {
             //executes upon successful build
-            echo'notify me on success...'
+            echo 'notify me on success...'
+            echo "artifactory credits ${ARTIFACTORY_SERVER_CREDENTIALS}"
         }
         failure {
             // executes upon build failure
