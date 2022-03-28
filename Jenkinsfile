@@ -20,6 +20,7 @@ pipeline{
             }
         }
     }
+<<<<<<< HEAD
 
     // after the stages are completed we can define post actions
     post {
@@ -34,3 +35,6 @@ pipeline{
         }
     }
 }
+=======
+}
+>>>>>>> fa3083d9aeb5400961f09e8d35194930def4f7ef
