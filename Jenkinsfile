@@ -8,6 +8,14 @@ pipeline{
             }
         }
         stage('Test') {
+            // u can control the execution of a stage using when expression
+            when {
+                expression {
+                    // BRANCH_NAME is provided by jenkins and it tells u the active branch
+                    // this expression will make this stage execute only if the branch is the feature branch
+                    env.BRANCH_NAME == 'feature'
+                }
+            }
             steps {
                 //steps
                 echo 'running tests on the application...'
