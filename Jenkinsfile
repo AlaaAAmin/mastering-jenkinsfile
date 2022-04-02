@@ -24,15 +24,15 @@ pipeline{
         ARTIFACTORY_SERVER_CREDENTIALS = credentials('artifactory-credits')
     }
     stages{
-        stage('init') {
+        stage('Init') {
             steps {
                 echo 'initializing external scripts...'
-                script {
+                // script {
                     // the syntax to do so is:
                     // varName = load "path of the file"
                     // NOTE: to be able to access the varName through the file u need to define it
                     // as a global above the pipeline
-                }
+                // }
             }
         }
         stage('Build') {
