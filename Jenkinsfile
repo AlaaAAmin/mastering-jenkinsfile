@@ -1,5 +1,17 @@
 pipeline{
     agent any
+    parameters {
+        // params syntax is type(name: 'paramName', defaultValue: '' or choices['',''], description: '')
+        // can be accessed in the jenkinsfile using ${params.paramName}
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'controls the execution of tests')
+        choice(name: 'exampleChoice', choices: ['#1', '#2', '#3'], description: 'some random choices')
+        string(name: 'version', defaultValue: 'latest', description: 'the build version')
+    }
+    tools {
+        // tools specifies the plugins used for building, testing, deploying, ...etc
+        // syntax: tool-name 'tool installation name in jenkins'
+        maven "M3"
+    }
     //defining environmental variables
     environment {
         // NEW_VERSION is an env variable
@@ -21,7 +33,7 @@ pipeline{
                 expression {
                     // BRANCH_NAME is provided by jenkins and it tells u the active branch
                     // this expression will make this stage execute only if the branch is the feature branch
-                    env.BRANCH_NAME == 'feature'
+                    env.BRANCH_NAME == 'feature' || params.executeTests
                 }
             }
             steps {
@@ -40,16 +52,19 @@ pipeline{
     post {
         always {
             // executes everytime a build has finished
-            echo 'always notify me of new builds...'
+            echo 'new build...'
+            echo "build version ${params.version} has been built"
         }
         success {
             //executes upon successful build
-            echo 'notify me on success...'
+            echo 'build successeded...'
+            echo "build version ${params.version} has been built"
             echo "artifactory credits ${ARTIFACTORY_SERVER_CREDENTIALS}"
         }
         failure {
             // executes upon build failure
-            echo'notify me on failures...'
+            echo'build failed...'
+            echo "build version ${params.version} have failed"
         }
     }
 }
